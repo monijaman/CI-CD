@@ -3,18 +3,28 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 20
     commands:
       - echo Installing dependencies...
       - npm ci --legacy-peer-deps
 
   build:
     commands:
-      - echo Building the React app...
+      - echo "Node.js version:"
+      - node --version
+      - echo "NPM version:"
+      - npm --version
+      - echo "Current directory contents:"
+      - ls -la
+      - echo "Building the React app..."
       - npm run build
+      - echo "Build completed successfully"
+      - echo "Checking dist directory:"
+      - ls -la dist/
 
 artifacts:
   files:
     - "**/*"
   base-directory: dist
   discard-paths: no
+  name: react-app-build
