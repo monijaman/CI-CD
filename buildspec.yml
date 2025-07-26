@@ -8,42 +8,13 @@ phases:
       - echo Installing dependencies...
       - npm ci --legacy-peer-deps
 
-  pre_build:
-    commands:
-      - echo Logging build information...
-      - node --version
-      - npm --version
-      - echo Build started on `date`
-
   build:
     commands:
       - echo Building the React app...
-      - echo "Current directory contents:"
-      - ls -la
-      - echo "Checking package.json scripts:"
-      - cat package.json | grep -A 10 '"scripts"'
-      - echo "Running build command..."
-      - npm run build || (echo "Build failed, checking for errors..." && exit 1)
-      - echo Build completed on `date`
-      - echo "Checking if dist directory exists..."
-      - ls -la
-      - if [ -d "dist" ]; then echo "dist directory found" && ls -la dist/; else echo "dist directory not found"; fi
-
-  post_build:
-    commands:
-      - echo "Post-build phase started"
-      - if [ -d "dist" ]; then
-        echo "Build artifacts found in dist/:" && ls -la dist/;
-        else
-        echo "No dist directory found - build may have failed";
-        fi
+      - npm run build
 
 artifacts:
   files:
     - "**/*"
   base-directory: dist
   discard-paths: no
-
-cache:
-  paths:
-    - node_modules/**/*
