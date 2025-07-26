@@ -22,9 +22,21 @@ phases:
       - echo "Checking dist directory:"
       - ls -la dist/
 
+  post_build:
+    commands:
+      - echo Build completed successfully
+      - echo "Checking dist directory:"
+      - ls -la dist/
+      - echo "Uploading to S3..."
+      - aws s3 sync dist/ s3://my-react-ci-cd-bucket --delete
+
 artifacts:
   files:
     - "**/*"
   base-directory: dist
   discard-paths: no
   name: react-app-build
+
+cache:
+  paths:
+    - node_modules/**/*
