@@ -28,7 +28,7 @@ phases:
       - echo "Checking dist directory:"
       - ls -la dist/
       - echo "Uploading to S3..."
-      - aws s3 sync dist/ s3://my-react-ci-cd-bucket --delete
+      - aws s3 sync dist/ s3://bucket-singapure --delete
 
 artifacts:
   files:
