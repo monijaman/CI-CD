@@ -32,10 +32,10 @@ phases:
   post_build:
     commands:
       - echo "Post-build phase started"
-      - if [ -d "dist" ]; then 
-          echo "Build artifacts found in dist/:" && ls -la dist/; 
-        else 
-          echo "No dist directory found - build may have failed"; 
+      - if [ -d "dist" ]; then
+        echo "Build artifacts found in dist/:" && ls -la dist/;
+        else
+        echo "No dist directory found - build may have failed";
         fi
 
 artifacts:
