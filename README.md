@@ -184,6 +184,20 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 
 <br>- Next, we will add a bucket policy to allow public read access inside our s3 bucket. Here's the sample policy you can use:
 
+✅ Steps to Add Bucket Policy in AWS Console
+Go to the S3 console:
+👉 https://s3.console.aws.amazon.com/s3
+
+Click your bucket name (e.g., your-bucket-name).
+
+From the left sidebar, click "Permissions" tab.
+
+Scroll down to Bucket policy section.
+
+Click “Edit” (or “Add policy” if none exists).
+
+Paste your policy below (replacing your-bucket-name with your actual bucket name):
+
 ```json
 {
   "Version": "2012-10-17",
