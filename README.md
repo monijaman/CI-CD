@@ -199,6 +199,11 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 }
 ```
 
+## Add Theese Permission:
+
+![Image](img/bucket_roles.jpg)
+![Image](img/bucket_roles2.jpg)
+
 ⚠️ Replace: `your-bucket-name` with your actual bucket name, then click "Save"
 
 ![Image](https://github.com/user-attachments/assets/625e9e8b-88ec-413d-931d-922cd21303d8)
