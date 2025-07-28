@@ -345,6 +345,11 @@ Use this custom JSON policy:
 
 ```
 
+Go to AWS Console → IAM → Roles
+Find the role: codebuild-lolita-build-service-role
+Click "Add inline policy"
+Choose "JSON" tab and paste this:
+
 ```bash
 {
     "Version": "2012-10-17",
