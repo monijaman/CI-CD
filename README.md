@@ -224,7 +224,7 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 
 Go to IAM Console
 Open the AWS Console and go to:
-IAM > Roles > bangla-service-role
+IAM > Roles > bangla-service-role.
 
 Edit Trust Relationship
 
