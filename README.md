@@ -234,19 +234,20 @@ Set the trust policy like this:
 
 ```bash
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "codebuild:StartBuild"
-            ],
-            "Resource": [
-                "arn:aws:codebuild:ap-southeast-1:590183819081:project/bangla-build"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowCodeBuildStartAndGet",
+      "Effect": "Allow",
+      "Action": [
+        "codebuild:StartBuild",
+        "codebuild:BatchGetBuilds"
+      ],
+      "Resource": "arn:aws:codebuild:ap-southeast-1:590183819081:project/bangla-build"
+    }
+  ]
 }
+
 
 ```
 
