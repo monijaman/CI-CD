@@ -344,3 +344,25 @@ Use this custom JSON policy:
 }
 
 ```
+
+```bash
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::lolita-go",
+                "arn:aws:s3:::lolita-go/*"
+            ]
+        }
+    ]
+}
+```
