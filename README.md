@@ -265,7 +265,7 @@ When you use CodePipeline with a CodeConnection (like GitHub), the pipeline's se
 ✅ Solution: Add codestar-connections:UseConnection permission
 Go to IAM > Roles
 
-Open the role used by CodePipeline (not CodeBuild)
+Open the role used by CodePipeline (not CodeBuild).
 
 Example: bangla-service-role
 
