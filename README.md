@@ -249,47 +249,26 @@ Set the trust policy like this:
 
 ```bash
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "codebuild.amazonaws.com",
-          "codepipeline.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CodePipelineTrustPolicy",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": [
+                    "codepipeline.amazonaws.com",
+                    "codebuild.amazonaws.com"
+                ]
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "StringEquals": {
+                    "aws:SourceAccount": "590183819081"
+                }
+            }
+        }
+    ]
 }
-
-```
-
-```bash
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowCodeBuildStartAndGet",
-      "Effect": "Allow",
-      "Action": [
-        "codebuild:StartBuild",
-        "codebuild:BatchGetBuilds"
-      ],
-      "Resource": "arn:aws:codebuild:ap-southeast-1:590183819081:project/bangla-build"
-    },
-    {
-      "Sid": "AllowCodeStarConnectionUse",
-      "Effect": "Allow",
-      "Action": "codestar-connections:UseConnection",
-      "Resource": "arn:aws:codeconnections:us-east-1:590183819081:connection/87bd85df-c814-44b5-856c-385ab958f971"
-    }
-  ]
-}
-
-
-
 
 ```
 
@@ -306,41 +285,41 @@ Click Add permissions > Add inline policy
 
 Use this custom JSON policy:
 
-<!-- ````bash
+````bash
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowUseCodeConnection",
-      "Effect": "Allow",
-      "Action": "codestar-connections:UseConnection",
-      "Resource": "arn:aws:codeconnections:us-east-1:590183819081:connection/87bd85df-c814-44b5-856c-385ab958f971"
-    }
-  ]
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Sid": "AllowUseCodeConnection",
+     "Effect": "Allow",
+     "Action": "codestar-connections:UseConnection",
+     "Resource": "arn:aws:codeconnections:us-east-1:590183819081:connection/87bd85df-c814-44b5-856c-385ab958f971"
+   }
+ ]
 }
-```bash
-```` -->
+```
+
 
 ```bash
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "ListBucket",
-      "Effect": "Allow",
-      "Action": "s3:ListBucket",
-      "Resource": "arn:aws:s3:::lolita-go"
-    },
-    {
-      "Sid": "PutDeleteObjects",
-      "Effect": "Allow",
-      "Action": [
-        "s3:PutObject",
-        "s3:DeleteObject"
-      ],
-      "Resource": "arn:aws:s3:::lolita-go/*"
-    }
-  ]
+ "Version": "2012-10-17",
+ "Statement": [
+   {
+     "Sid": "ListBucket",
+     "Effect": "Allow",
+     "Action": "s3:ListBucket",
+     "Resource": "arn:aws:s3:::lolita-go"
+   },
+   {
+     "Sid": "PutDeleteObjects",
+     "Effect": "Allow",
+     "Action": [
+       "s3:PutObject",
+       "s3:DeleteObject"
+     ],
+     "Resource": "arn:aws:s3:::lolita-go/*"
+   }
+ ]
 }
 
 ```
@@ -352,22 +331,23 @@ Choose "JSON" tab and paste this:
 
 ```bash
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Statement1",
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket",
-                "s3:GetObject",
-                "s3:PutObject",
-                "s3:DeleteObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::lolita-go",
-                "arn:aws:s3:::lolita-go/*"
-            ]
-        }
-    ]
+   "Version": "2012-10-17",
+   "Statement": [
+       {
+           "Sid": "Statement1",
+           "Effect": "Allow",
+           "Action": [
+               "s3:ListBucket",
+               "s3:GetObject",
+               "s3:PutObject",
+               "s3:DeleteObject"
+           ],
+           "Resource": [
+               "arn:aws:s3:::lolita-go",
+               "arn:aws:s3:::lolita-go/*"
+           ]
+       }
+   ]
 }
 ```
+````
