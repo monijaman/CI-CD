@@ -53,7 +53,7 @@ For the deploy provider we are going to use Amazon S3, we will create an S3 buck
 2. Click Create bucket.
 3. Name it something unique like `ms3-ci-cd`
 
-![Image](img/create-s3.jpgcreate-s3.jpg)
+![Image](img/create-s3.jpg)
 
 Once the s3 bucket is created, leave it for now, as we will come for it to finish the setup later.
 
@@ -202,6 +202,7 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 ## Add Theese Permission:
 
 ![Image](img/bucket_roles.jpg)
+![Image](img/bucket_roles2.jpg)
 ![Image](img/bucket_roles2.jpg)
 
 ⚠️ Replace: `your-bucket-name` with your actual bucket name, then click "Save"
