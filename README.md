@@ -222,7 +222,8 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 
 ![Image](img/build-project-4.jpg)
 
-Go to IAM Console
+## Go to IAM Console
+
 Open the AWS Console and go to:
 IAM > Roles > bangla-service-role.
 
@@ -244,9 +245,17 @@ Set the trust policy like this:
         "codebuild:BatchGetBuilds"
       ],
       "Resource": "arn:aws:codebuild:ap-southeast-1:590183819081:project/bangla-build"
+    },
+    {
+      "Sid": "AllowCodeStarConnectionUse",
+      "Effect": "Allow",
+      "Action": "codestar-connections:UseConnection",
+      "Resource": "arn:aws:codeconnections:us-east-1:590183819081:connection/87bd85df-c814-44b5-856c-385ab958f971"
     }
   ]
 }
+
+
 
 
 ```
