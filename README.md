@@ -232,18 +232,48 @@ Click the Trust relationships tab, then click Edit trust policy.
 
 Set the trust policy like this:
 
+```bash
 {
-"Version": "2012-10-17",
-"Statement": [
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "codebuild:StartBuild"
+            ],
+            "Resource": [
+                "arn:aws:codebuild:ap-southeast-1:590183819081:project/bangla-build"
+            ]
+        }
+    ]
+}
+
+```
+
+When you use CodePipeline with a CodeConnection (like GitHub), the pipeline's service role (the IAM role you assign to the pipeline) needs permission to use the connection.
+
+✅ Solution: Add codestar-connections:UseConnection permission
+Go to IAM > Roles
+
+Open the role used by CodePipeline (not CodeBuild)
+
+Example: bangla-service-role
+
+Click Add permissions > Add inline policy
+
+Use this custom JSON policy:
+
+````bash
 {
-"Effect": "Allow",
-"Principal": {
-"Service": [
-"codebuild.amazonaws.com",
-"codepipeline.amazonaws.com"
-]
-},
-"Action": "sts:AssumeRole"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowUseCodeConnection",
+      "Effect": "Allow",
+      "Action": "codestar-connections:UseConnection",
+      "Resource": "arn:aws:codeconnections:us-east-1:590183819081:connection/87bd85df-c814-44b5-856c-385ab958f971"
+    }
+  ]
 }
-]
-}
+```bash
+````
