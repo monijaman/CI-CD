@@ -306,7 +306,7 @@ Click Add permissions > Add inline policy
 
 Use this custom JSON policy:
 
-````bash
+<!-- ````bash
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -319,7 +319,7 @@ Use this custom JSON policy:
   ]
 }
 ```bash
-````
+```` -->
 
 ```bash
 {
