@@ -238,6 +238,25 @@ Set the trust policy like this:
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "codebuild.amazonaws.com",
+          "codepipeline.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+
+```
+
+```bash
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
       "Sid": "AllowCodeBuildStartAndGet",
       "Effect": "Allow",
       "Action": [
