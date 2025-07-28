@@ -250,7 +250,7 @@ Set the trust policy like this:
 
 ```
 
-When you use CodePipeline with a CodeConnection (like GitHub), the pipeline's service role (the IAM role you assign to the pipeline) needs permission to use the connection.
+When you use CodePipeline with a CodeConnection (like GitHub), the pipeline's service role (the IAM role you assign to the pipeline) needs permission to use the connection..
 
 ✅ Solution: Add codestar-connections:UseConnection permission
 Go to IAM > Roles
