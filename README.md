@@ -219,3 +219,31 @@ Once the pipeline is successfully created, you’ll see it run through the `sour
 ![Image](https://github.com/user-attachments/assets/4d6c02fd-44ba-49d5-967f-23f3d189087e)
 
 ## ➡️ Step 5 - Test the Pipeline
+
+![Image](img/build-project-4.jpg)
+
+Go to IAM Console
+Open the AWS Console and go to:
+IAM > Roles > bangla-service-role
+
+Edit Trust Relationship
+
+Click the Trust relationships tab, then click Edit trust policy.
+
+Set the trust policy like this:
+
+{
+"Version": "2012-10-17",
+"Statement": [
+{
+"Effect": "Allow",
+"Principal": {
+"Service": [
+"codebuild.amazonaws.com",
+"codepipeline.amazonaws.com"
+]
+},
+"Action": "sts:AssumeRole"
+}
+]
+}
