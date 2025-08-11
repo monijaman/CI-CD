@@ -31,6 +31,10 @@ git clone https://github.com/monijaman/CI-CD.git
 1. Go to AWS S3 service and click **Create bucket**
 2. Choose a unique bucket name
 3. Keep default settings (we'll configure hosting later)
+   ![Image](img/cp1.jpg)
+   ![Image](img/cp2.jpg)
+   ![Image](img/cp3.jpg)
+   ![Image](img/cp4.jpg)
 
 ## ➡️ Step 3 - Create CodePipeline
 
@@ -63,10 +67,7 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
    - Choose **"Create project"**
 
 ![Image](img/pipeline-5.jpg)
-![Image](img/cp1.jpg)
-![Image](img/cp2.jpg)
-![Image](img/cp3.jpg)
-![Image](img/cp4.jpg)
+
 ![Image](img/continue-code-pipeline.jpg)
 ![Image](img/codepipeline-success.jpg)
 ![Image](img/codepipeline3.jpg)
