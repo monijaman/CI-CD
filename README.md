@@ -15,20 +15,6 @@
     </div>
 </div>
 
-## 🚨 Tutorial
-
-This repository contains the steps corresponding to an in-depth tutorial available on my YouTube
-channel, <a href="http://www.youtube.com/@julienmuke/videos" target="_blank"><b>Julien Muke</b></a>.
-
-If you prefer visual learning, this is the perfect resource for you. Follow my tutorial to learn how to build projects
-like these step-by-step in a beginner-friendly manner!
-
-<a href="https://youtu.be/1k6s4shjpRc?si=NOQo77cZQtTA6eGW" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
-
-## <a name="introduction">🤖 Introduction</a>
-
-In this tutorial, you'll learn how to build a fully automated CI/CD pipeline using AWS CodePipeline, CodeBuild, and Amazon S3 to deploy a React.js application hosted on GitHub. Say goodbye to manual deployments, every time you push to your repo, your app will automatically build and deploy to a static website on S3!
-
 ## <a name="steps">🔧 How it Works:</a>
 
 1. Push code to the `main` branch on GitHub.
@@ -71,7 +57,15 @@ git clone https://github.com/monijaman/CI-CD.git
 ![Image](img/pipeline-2.jpg)
 ![Image](img/pipeline-3.jpg)
 
-5. **Add Build Stage:**
+## ➡️ Step 4 - Create CodeBuild Project
+
+Now let’s set up CodeBuild to build and package your React app for deployment.
+
+**Step-by-step:**
+
+1. Go to AWS CodeBuild and click **Create Build Project**.
+2. Name your project (e.g., `react-cicd-pipeline-demo`).
+3. **Add Build Stage:**
    - Provider: **AWS CodeBuild**
    - Choose **"Create project"**
 
@@ -81,6 +75,7 @@ git clone https://github.com/monijaman/CI-CD.git
 ![Image](img/cp3.jpg)
 ![Image](img/cp4.jpg)
 
+<!--
 ## ➡️ Step 4 - Create CodeBuild Project
 
 Now let’s set up CodeBuild to build and package your React app for deployment.
@@ -97,45 +92,73 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
 
    ![Image](https://github.com/user-attachments/assets/85452545-3411-4766-84ae-b9571389c11f)
 
-5. In your GitHub repo, create a file named `buildspec.yml` in the root directory:
+5. In your GitHub repo, create a file named `buildspec.yml` in the root directory: -->
 
-   ```yaml
-   version: 0.2
+```yaml
+version: 0.2
 
-   phases:
-     install:
-       runtime-versions:
-         nodejs: 20
-       commands:
-         - echo Installing dependencies...
-         - npm ci --legacy-peer-deps
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo Installing dependencies...
+      - npm ci --legacy-peer-deps
 
-     build:
-       commands:
-         - echo Building the React app...
-         - npm run build
+  build:
+    commands:
+      - echo "Node.js version:"
+      - node --version
+      - echo "NPM version:"
+      - npm --version
+      - echo "Current directory contents:"
+      - ls -la
+      - echo "Building the React app..."
+      - npm run build
+      - echo "Build completed successfully"
+      - echo "Checking dist directory:"
+      - ls -la dist/
 
-   artifacts:
-     files:
-       - "**/*"
-     base-directory: dist
-     discard-paths: no
-   ```
+  post_build:
+    commands:
+      - echo Build completed successfully
+      - echo "Checking if dist directory exists..."
+      - if [ -d "dist" ]; then
+        echo "dist directory found, listing contents:";
+        ls -la dist/;
+        echo "Uploading to S3...";
+        aws s3 sync dist/ s3://lolita-go --delete;
+        else
+        echo "dist directory not found - build may have failed";
+        exit 1;
+        fi
 
-6. **Add Deploy Stage:**
+artifacts:
+  files:
+    - "**/*"
+  base-directory: dist
+  discard-paths: no
+  name: react-app-build
 
-   - Provider: **Amazon S3**
-   - Bucket: Select your S3 bucket created earlier
-   - Extract file option: **YES**
+cache:
+  paths:
+    - node_modules/**/*
+```
 
-   ![Image](https://github.com/user-attachments/assets/d5d2ffa9-7c7b-4502-86af-689f7bbe0dec)
-   ![Image](https://github.com/user-attachments/assets/ed4dfacf-40f5-4ddb-bf0b-20837c37ac8c)
+## ➡️ Step 5 - Add Deploy Stage
+
+- - Provider: **Amazon S3**
+  - Bucket: Select your S3 bucket created earlier
+  - Extract file option: **YES**
+
+  ![Image](https://github.com/user-attachments/assets/d5d2ffa9-7c7b-4502-86af-689f7bbe0dec)
+  ![Image](https://github.com/user-attachments/assets/ed4dfacf-40f5-4ddb-bf0b-20837c37ac8c)
 
 7. Review configuration and click **"Create pipeline"**.
 
 Once the pipeline is successfully created, you’ll see it run through the `source` `build` and `deploy` stages.
 
-## ➡️ Step 5 - Configure S3 for Static Website Hosting
+## ➡️ Step 6 - Configure S3 for Static Website Hosting
 
 1. Go to Amazon S3 console and select your bucket.
 2. **Enable Static Website Hosting:**
