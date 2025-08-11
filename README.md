@@ -1,60 +1,4 @@
-# 🚀 Deploy Re## ➡️ Step 1 - Setup Your React App on GitHub
-
-1## ➡️ Step 4 - Create CodeBuild Project
-
-1## ➡️ Step 5 - Add Deploy Stage
-
-1. In CodePipeline, add a deploy stage:
-   - Provider: **Amazon S3**
-   - Select your S3 bucket
-   - Extract file option: **YES**
-
-![Deploy Stage Configuration](img/select-deploy.jpg)
-_Configuring the deploy stage to use S3_
-
-2. Review configuration and click **"Create pipeline"**
-
-![Pipeline Creation Success](img/continue-code-pipeline.jpg)
-_Continuing to CodePipeline after CodeBuild setup_
-
-![Pipeline Overview](img/codepipeline-success.jpg)
-_Successfully created pipeline overview_
-
-![Pipeline Stages](img/pipeline-created.jpg)
-_Pipeline with all stages configured_
-
-![Deployment Complete](img/deploy-done.jpg)
-*Successful deployment to S3*odeBuild and click **Create Build Project** 2. Name your project (e.g., `react-build-project`) 3. Choose environment:
-
-- Managed image: `aws/codebuild/standard:7.0` (or latest)
-- Operating system: Amazon Linux 2
-
-4. **Build specification:**
-   - Select **"Use a buildspec file"**
-
-![CodeBuild Project Setup](img/pipeline-5.jpg)
-_Creating a new CodeBuild project_
-
-![CodeBuild Configuration](img/cp1.jpg)
-_Configuring CodeBuild environment settings_
-
-![Build Specification](img/cp2.jpg)
-_Setting up build specifications_
-
-![Environment Configuration](img/cp3.jpg)
-_Environment and runtime configuration_
-
-![Service Role Setup](img/cp4.jpg)
-*CodeBuild service role configuration*ur React application repository 2. Ensure your React app is properly configured with:
-
-- `package.json` with build scripts
-- All necessary dependencies
-
-3. Commit and push your code to GitHub
-
-````bash
-git clone https://github.com/your-username/your-react-app.git
-``` with Full CI/CD Pipeline on AWS
+# 🚀 Deploy React App with Full CI/CD Pipeline on AWS
 
 ## Overview
 
@@ -74,7 +18,7 @@ First, we’ll set up a React app by cloning the React app from my GitHub reposi
 
 ```bash
 git clone https://github.com/monijaman/CI-CD.git
-````
+```
 
 ## ➡️ Step 2 - Create S3 Bucket for Hosting
 
@@ -82,31 +26,20 @@ git clone https://github.com/monijaman/CI-CD.git
 2. Choose a unique bucket name
 3. Keep default settings (we'll configure hosting later)
 
-![S3 Bucket Creation](img/create-s3.jpg)
-_Creating a new S3 bucket for static website hosting_
-
 ## ➡️ Step 3 - Create CodePipeline
 
 1. Go to AWS CodePipeline and click **Create pipeline**
 2. Name your pipeline (e.g., `react-pipeline`)
 3. Create a new service role with these permissions:
+
    - CloudWatchLogsFullAccess
    - S3FullAccess
    - CodeBuildBasePolicy
-
-![CodePipeline Setup](img/pipeline-1.jpg)
-_Setting up CodePipeline with service role configuration_
 
 4. **Add Source Stage:**
    - Source provider: **GitHub**
    - Connect your GitHub account
    - Select your React repository and main branch
-
-![GitHub Source Configuration](img/pipeline-2.jpg)
-_Connecting GitHub repository as the source_
-
-![Repository Selection](img/pipeline-3.jpg)
-_Selecting the specific repository and branch_
 
 ## ➡️ Step 4 - Create CodeBuild Project
 
@@ -182,9 +115,6 @@ cache:
 
 ⚠️ **Replace `YOUR-BUCKET-NAME` with your actual S3 bucket name**
 
-![Buildspec Configuration](img/add-bucket-name.jpg)
-_Example of updating bucket name in buildspec.yml_
-
 ## ➡️ Step 7 - Add Bucket Policy
 
 ✅ Steps to Add Bucket Policy in AWS Console
@@ -242,9 +172,6 @@ Your CodeBuild service role needs permissions to upload to S3. Add this inline p
 ```
 
 ⚠️ **Replace `YOUR-BUCKET-NAME` with your actual bucket name**
-
-![IAM Role Configuration](img/build-project-4.jpg)
-_Configuring IAM roles and permissions for CodeBuild_
 
 ## ➡️ Step 9 - Access Your Application
 
