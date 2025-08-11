@@ -232,6 +232,8 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 }
 ```
 
+ok
+
 ## Add Theese Permission:
 
 ![Image](img/bucket_roles.jpg)
