@@ -1,4 +1,10 @@
-# 🚀 Deploy React App with Full CI/CD Pipeline on AWS
+# 🚀 Deploy Re## ➡️ Step 1 - Setup Your React App on GitHub
+
+1. Create or clone your React application repository
+2. Ensure your React app is properly configured with:
+   - `package.json` with build scripts
+   - All necessary dependencies
+3. Commit and push your code to GitHub with Full CI/CD Pipeline on AWS
 
 ## Overview
 
