@@ -47,57 +47,39 @@ git clone https://github.com/monijaman/CI-CD.git
 
 ## ➡️ Step 2 - Create S3 Bucket for Hosting
 
-For the deploy provider we are going to use Amazon S3, we will create an S3 bucket.
-
-1. Head over to the S3 service.
-2. Click Create bucket.
-3. Name it something unique like `ms3-ci-cd`
+1. Go to AWS S3 service and click **Create bucket**.
+2. Name it something unique like `ms3-ci-cd`.
+3. Keep default settings for now (we'll configure it later).
 
 ![Image](img/create-s3.jpg)
 
-Once the s3 bucket is created, leave it for now, as we will come for it to finish the setup later.
-
 ## ➡️ Step 3 - Create CodePipeline
 
-Now the fun part—building the pipeline.
-
-1. Go to AWS CodePipeline, click Create pipeline.
-2. Name your pipeline: `ms3-codepineline`
-3. Choose a new service role or an existing one.
-4. Service Role:
-
-Create a new service role with these permissions:
-
-CloudWatchLogsFullAccess
-S3FullAccess (if deploying to S3)
-CodeBuildBasePolicy
+1. Go to AWS CodePipeline and click **Create pipeline**.
+2. Name your pipeline: `ms3-codepipeline`.
+3. Create a new service role with these permissions:
+   - CloudWatchLogsFullAccess
+   - S3FullAccess
+   - CodeBuildBasePolicy
 
 ![Image](img/pipeline-1.jpg)
 
-4. Add source stage:
-   <br>- Source provider: GitHub (connect your GitHub account).
-   <br>- Select your repository and branch.
-
-⚠️Note: Make sure you select the repository that we cloned in Step 1
+4. **Add Source Stage:**
+   - Source provider: **GitHub** (connect your GitHub account)
+   - Select your repository and branch (the one cloned in Step 1)
 
 ![Image](img/pipeline-2.jpg)
-
-<br>- Once you are connected to your Github and select your repository, then choose "Next"
-
 ![Image](img/pipeline-3.jpg)
 
-5. Add build stage:
-   <br>- Provider: AWS CodeBuild.
-   <br>- Choose "Create project"
-   ![Image](img/pipeline-5.jpg)
-   ![Image](img/cp1.jpg)
-   ![Image](img/cp2.jpg)
-   ![Image](img/cp3.jpg)
-   ![Image](img/cp4.jpg)
+5. **Add Build Stage:**
+   - Provider: **AWS CodeBuild**
+   - Choose **"Create project"**
 
-Let's proceed to next step and create the CodeBuild Project.
-
-OR you can create CodeBuild following this
+![Image](img/pipeline-5.jpg)
+![Image](img/cp1.jpg)
+![Image](img/cp2.jpg)
+![Image](img/cp3.jpg)
+![Image](img/cp4.jpg)
 
 ## ➡️ Step 4 - Create CodeBuild Project
 
@@ -140,30 +122,41 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
      discard-paths: no
    ```
 
-   > This file tells CodeBuild to install dependencies, build your app, and package the production files from the `dist` folder.
+6. **Add Deploy Stage:**
 
-6. In CodeBuild, leave other settings as default and link this project to your CodePipeline build stage.
-7. Once added, continue to the next step in CodePipeline setup.
+   - Provider: **Amazon S3**
+   - Bucket: Select your S3 bucket created earlier
+   - Extract file option: **YES**
 
    ![Image](https://github.com/user-attachments/assets/d5d2ffa9-7c7b-4502-86af-689f7bbe0dec)
+   ![Image](https://github.com/user-attachments/assets/ed4dfacf-40f5-4ddb-bf0b-20837c37ac8c)
 
-8. Add a deploy stage:
-   - Provider: **Amazon S3**
-   - Bucket: Select the one you created earlier (e.g., `my-react-cicd-demo`)
-   - Extract file option: YES, then click "Next"
-
-![Image](https://github.com/user-attachments/assets/ed4dfacf-40f5-4ddb-bf0b-20837c37ac8c)
-
-<br>- Lastly, review all the configuration and click "Create pipeline"
+7. Review configuration and click **"Create pipeline"**.
 
 Once the pipeline is successfully created, you’ll see it run through the `source` `build` and `deploy` stages.
 
-## Let's finish our S3 Buckect configuration
+## ➡️ Step 5 - Configure S3 for Static Website Hosting
 
-1. Go to Amazon S3 console
-2. Select our existing S3 bucket `my-react-cicd-demo`
-3. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
-4. Now let's make this S3 Bucket public:
+1. Go to Amazon S3 console and select your bucket.
+2. **Enable Static Website Hosting:**
+   - Go to **Properties** tab → **"Static Website Hosting"** → **Edit**
+   - Choose **Enable** and set `index.html` as index document
+
+![Image](https://github.com/user-attachments/assets/d0f13940-48fc-42ab-a42b-f57fca2eb618)
+![Image](https://github.com/user-attachments/assets/24f26fed-ec71-4a0b-96df-72f51de20d02)
+![Image](https://github.com/user-attachments/assets/c25619a1-822a-40bd-b43a-f941c6c2c3c8)
+
+3. **Make Bucket Public:**
+   - Go to **Permissions** tab
+   - Uncheck **"Block all public access"** → **Save changes**
+
+![Image](https://github.com/user-attachments/assets/e4c76949-667c-4cba-a6ef-637e4d3dcc4a)
+
+4. **Add Bucket Policy:**
+   - In **Permissions** tab → **Bucket policy** → **Edit**
+   - Paste this policy (replace `your-bucket-name` with your actual bucket name):
+5. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
+6. Now let's make this S3 Bucket public:
    <br>- On the top bar, choose "Properties"
 
 ![Image](https://github.com/user-attachments/assets/d0f13940-48fc-42ab-a42b-f57fca2eb618)
@@ -232,35 +225,42 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 
 ![Image](https://github.com/user-attachments/assets/4d6c02fd-44ba-49d5-967f-23f3d189087e)
 
-## ➡️ Step 5 - Test the Pipeline
+## ➡️ Step 7 - Fix IAM Permissions (If Build Fails)
+
+If your pipeline fails with S3 access errors, add these permissions to your CodeBuild service role:
+
+1. Go to **IAM Console** → **Roles** → Find your CodeBuild role (e.g., `bangla-service-role`)
+2. Add this inline policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::your-bucket-name",
+        "arn:aws:s3:::your-bucket-name/*"
+      ]
+    }
+  ]
+}
+```
+
+⚠️ **Replace `your-bucket-name` with your actual bucket name**
 
 ![Image](img/build-project-4.jpg)
 
-## Go to IAM Console
+---
 
-Open the AWS Console and go to:
-IAM > Roles > bangla-service-role.
+## 🎉 Congratulations!
 
-add inline policy in json
+Your React app is now automatically deployed via CI/CD pipeline:
 
-```bash
-{
-   "Version": "2012-10-17",
-   "Statement": [
-       {
-           "Sid": "Statement1",
-           "Effect": "Allow",
-           "Action": [
-               "s3:ListBucket",
-               "s3:GetObject",
-               "s3:PutObject",
-               "s3:DeleteObject"
-           ],
-           "Resource": [
-               "arn:aws:s3:::lolita-go",
-               "arn:aws:s3:::lolita-go/*"
-           ]
-       }
-   ]
-}
-```
+- **Push code** → **GitHub triggers CodePipeline** → **CodeBuild builds** → **Deploys to S3** → **Live website**
