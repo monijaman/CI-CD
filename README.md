@@ -74,6 +74,9 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
 ![Image](img/cp2.jpg)
 ![Image](img/cp3.jpg)
 ![Image](img/cp4.jpg)
+![Image](img/continue-code-pipeline.jpg)
+![Image](img/codepipeline-success.jpg)
+![Image](img/codepipeline3.jpg)
 
 <!--
 ## ➡️ Step 4 - Create CodeBuild Project
@@ -151,12 +154,12 @@ cache:
   - Bucket: Select your S3 bucket created earlier
   - Extract file option: **YES**
 
-  ![Image](https://github.com/user-attachments/assets/d5d2ffa9-7c7b-4502-86af-689f7bbe0dec)
-  ![Image](https://github.com/user-attachments/assets/ed4dfacf-40f5-4ddb-bf0b-20837c37ac8c)
+![Image](img/select-deploy.jpg)
 
-7. Review configuration and click **"Create pipeline"**.
+4. Review configuration and click **"Create pipeline"**.
 
 Once the pipeline is successfully created, you’ll see it run through the `source` `build` and `deploy` stages.
+![Image](img/pipeline-created.jpg)
 
 ## ➡️ Step 6 - Configure S3 for Static Website Hosting
 
