@@ -78,24 +78,24 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
 ![Image](img/codepipeline-success.jpg)
 ![Image](img/codepipeline3.jpg)
 
-<!--
-## ➡️ Step 4 - Create CodeBuild Project
+## ➡️ Step 5 - Add Deploy Stage
 
-Now let’s set up CodeBuild to build and package your React app for deployment.
+- - Provider: **Amazon S3**
+  - Bucket: Select your S3 bucket created earlier
+  - Extract file option: **YES**
 
-**Step-by-step:**
+![Image](img/select-deploy.jpg)
 
-1. Go to AWS CodeBuild and click **Create Build Project**.
-2. Name your project (e.g., `react-cicd-pipeline-demo`).
+4. Review configuration and click **"Create pipeline"**.
 
-   ![Image](https://github.com/user-attachments/assets/4f26b687-a04f-409d-877f-092e8dc59f46)
+Once the pipeline is successfully created, you’ll see it run through the `source` `build` and `deploy` stages.
+![Image](img/pipeline-created.jpg)
+![Image](img/deploy-done.jpg.jpg)
 
-3. For Environment, choose a managed image: `aws/codebuild/standard:7.0` (or latest available).
-4. Under Buildspec, select **Use a buildspec file**.
+## ➡️ Step 6 - Create CodeBuild Project
 
-   ![Image](https://github.com/user-attachments/assets/85452545-3411-4766-84ae-b9571389c11f)
-
-5. In your GitHub repo, create a file named `buildspec.yml` in the root directory: -->
+- - Update buildspec.yml like below:
+- Dont forget to update bucket name
 
 ```yaml
 version: 0.2
@@ -150,60 +150,7 @@ cache:
 
 ![Image](img/add-bucket-name.jpg)
 
-## ➡️ Step 5 - Add Deploy Stage
-
-- - Provider: **Amazon S3**
-  - Bucket: Select your S3 bucket created earlier
-  - Extract file option: **YES**
-
-![Image](img/select-deploy.jpg)
-
-4. Review configuration and click **"Create pipeline"**.
-
-Once the pipeline is successfully created, you’ll see it run through the `source` `build` and `deploy` stages.
-![Image](img/pipeline-created.jpg)
-
-## ➡️ Step 6 - Configure S3 for Static Website Hosting
-
-1. Go to Amazon S3 console and select your bucket.
-2. **Enable Static Website Hosting:**
-   - Go to **Properties** tab → **"Static Website Hosting"** → **Edit**
-   - Choose **Enable** and set `index.html` as index document
-
-![Image](https://github.com/user-attachments/assets/d0f13940-48fc-42ab-a42b-f57fca2eb618)
-![Image](https://github.com/user-attachments/assets/24f26fed-ec71-4a0b-96df-72f51de20d02)
-![Image](https://github.com/user-attachments/assets/c25619a1-822a-40bd-b43a-f941c6c2c3c8)
-
-3. **Make Bucket Public:**
-   - Go to **Permissions** tab
-   - Uncheck **"Block all public access"** → **Save changes**
-
-![Image](https://github.com/user-attachments/assets/e4c76949-667c-4cba-a6ef-637e4d3dcc4a)
-
-4. **Add Bucket Policy:**
-   - In **Permissions** tab → **Bucket policy** → **Edit**
-   - Paste this policy (replace `your-bucket-name` with your actual bucket name):
-5. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
-6. Now let's make this S3 Bucket public:
-   <br>- On the top bar, choose "Properties"
-
-![Image](https://github.com/user-attachments/assets/d0f13940-48fc-42ab-a42b-f57fca2eb618)
-
-<br>- Scroll down to "Static Website Hosting" and click "Edit"
-
-![Image](https://github.com/user-attachments/assets/24f26fed-ec71-4a0b-96df-72f51de20d02)
-
-<br>- Under "Static Website Hosting", choose "Enable"
-<br>- And specify `index.html` as the index document, then click "Save"
-
-![Image](https://github.com/user-attachments/assets/c25619a1-822a-40bd-b43a-f941c6c2c3c8)
-
-<br>- Next, edit some permissions, still on the tob bar choose "Permissions"
-<br>- Uncheck "Block all public access" to allow public access, then click "Save changes"
-
-![Image](https://github.com/user-attachments/assets/e4c76949-667c-4cba-a6ef-637e4d3dcc4a)
-
-<br>- Next, we will add a bucket policy to allow public read access inside our s3 bucket. Here's the sample policy you can use:
+## ➡️ Step 7 - Add Bucket Policy
 
 ✅ Steps to Add Bucket Policy in AWS Console
 Go to the S3 console:
@@ -234,33 +181,14 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 }
 ```
 
-ok
-
-## Add Theese Permission:
-
-![Image](img/bucket_roles.jpg)
-![Image](img/bucket_roles2.jpg)
-![Image](img/bucket_roles2.jpg)
-
-⚠️ Replace: `your-bucket-name` with your actual bucket name, then click "Save"
-
-![Image](https://github.com/user-attachments/assets/625e9e8b-88ec-413d-931d-922cd21303d8)
-
-<br>- Go back to the S3 Bucket console, on the top bar, choose Objects, then click on `index.html`
-<br>- To visit your React.js App, click on the Object URL.
-
-![Image](https://github.com/user-attachments/assets/ad404089-e051-40a6-b6c3-6de7a1acc4df)
-
-<br>- You should see your React.js App running on Amazon S3
-
-![Image](https://github.com/user-attachments/assets/4d6c02fd-44ba-49d5-967f-23f3d189087e)
-
-## ➡️ Step 7 - Fix IAM Permissions (If Build Fails)
-
-If your pipeline fails with S3 access errors, add these permissions to your CodeBuild service role:
+## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
 
 1. Go to **IAM Console** → **Roles** → Find your CodeBuild role (e.g., `bangla-service-role`)
 2. Add this inline policy:
+
+Your CodeBuild role needs write permissions to the bucket to upload files during your build. Your bucket policy does not grant write permissions or allow your CodeBuild role explicitly.
+
+So you need to attach this inline IAM policy to your CodeBuild service role (replace your-bucket-name with your actual bucket name):
 
 ```json
 {
@@ -285,6 +213,32 @@ If your pipeline fails with S3 access errors, add these permissions to your Code
 ![Image](img/build-project-4.jpg)
 
 ---
+
+## ➡️ Step 9 - Configure S3 for Static Website Hosting
+
+1. Go to Amazon S3 console and select your bucket.
+2. **Enable Static Website Hosting:**
+   - Go to **Properties** tab → **"Static Website Hosting"** → **Edit**
+   - Choose **Enable** and set `index.html` as index document
+
+![Image](static-website.jpg)
+![Image](static-enable.jpg)
+![Image](static-enable2.jpg)
+
+3. **Make Bucket Public:**
+   - Go to **Permissions** tab
+   - Uncheck **"Block all public access"** → **Save changes**
+
+![Image](public-access.jpg)
+
+4. **Add Bucket Policy:**
+   - In **Permissions** tab → **Bucket policy** → **Edit**
+   - Paste this policy (replace `your-bucket-name` with your actual bucket name):
+5. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
+6. Now let's make this S3 Bucket public:
+   <br>- On the top bar, choose "Properties"
+
+<br>- Next, we will add a bucket policy to allow public read access inside our s3 bucket. Here's the sample policy you can use:
 
 ## 🎉 Congratulations!
 
