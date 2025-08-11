@@ -217,7 +217,7 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
 
 ![Image](img/static-website.jpg)
 ![Image](img/static-enable.jpg)
-![Image](simg/tatic-enable2.jpg)
+![Image](simg/static-enable2.jpg)
 
 3. **Make Bucket Public:**
    - Go to **Permissions** tab
