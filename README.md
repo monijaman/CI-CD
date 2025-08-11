@@ -148,6 +148,8 @@ cache:
     - node_modules/**/*
 ```
 
+![Image](img/add-bucket-name.jpg)
+
 ## ➡️ Step 5 - Add Deploy Stage
 
 - - Provider: **Amazon S3**
