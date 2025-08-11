@@ -130,7 +130,7 @@ phases:
         echo "dist directory found, listing contents:";
         ls -la dist/;
         echo "Uploading to S3...";
-        aws s3 sync dist/ s3://lolita-go --delete;
+        aws s3 sync dist/ s3://igloocream  --delete;
         else
         echo "dist directory not found - build may have failed";
         exit 1;
