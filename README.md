@@ -214,15 +214,15 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
    - Go to **Properties** tab → **"Static Website Hosting"** → **Edit**
    - Choose **Enable** and set `index.html` as index document
 
-![Image](static-website.jpg)
-![Image](static-enable.jpg)
-![Image](static-enable2.jpg)
+![Image](img/static-website.jpg)
+![Image](img/static-enable.jpg)
+![Image](simg/tatic-enable2.jpg)
 
 3. **Make Bucket Public:**
    - Go to **Permissions** tab
    - Uncheck **"Block all public access"** → **Save changes**
 
-![Image](public-access.jpg)
+![Image](img/public-access.jpg)
 
 4. **Add Bucket Policy:**
    - In **Permissions** tab → **Bucket policy** → **Edit**
