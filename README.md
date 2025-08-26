@@ -217,7 +217,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 
 Your CodeBuild role needs write permissions to the bucket to upload files during your build. Your bucket policy does not grant write permissions or allow your CodeBuild role explicitly.
 
-So you need to attach this inline IAM policy to your CodeBuild service role (replace your-bucket-name with your actual bucket name):
+So you need to attach this inline IAM policy to your CodeBuild service role (replace your-bucket-name with your actual bucket name):.
 
 ```json
 {
@@ -235,7 +235,7 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     }
   ]
 }
-
+ 
 {
     "Version": "2012-10-17",
     "Statement": [
