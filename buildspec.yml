@@ -40,11 +40,9 @@ phases:
 artifacts:
   files:
     - "**/*"
-  # You must choose one folder for artifacts; 
-  # here we default to 'build' if it exists, otherwise 'dist'
-  base-directory: build
+  base-directory: dist   # <-- use 'dist' since your build output is in dist/
   discard-paths: no
-  name: react-app-build
+
 
 cache:
   paths:
