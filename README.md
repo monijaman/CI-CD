@@ -11,6 +11,7 @@
 This project demonstrates how to set up a complete CI/CD pipeline for a React application using AWS services including CodePipeline, CodeBuild, and S3 for static website hosting.
 
 ## <a name="steps">🔧 How it Works:</a>
+![image](img/flow.png)
 
 1. Push code to the `main` branch on GitHub.
 2. AWS CodePipeline detects the change.
