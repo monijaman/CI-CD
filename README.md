@@ -235,6 +235,23 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     }
   ]
 }
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": "arn:aws:s3:::kobras"
+        },
+        {
+            "Effect": "Allow",
+            "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+            "Resource": "arn:aws:s3:::kobras/*"
+        }
+    ]
+}
+
 ```
 
 ⚠️ **Replace `your-bucket-name` with your actual bucket name**
