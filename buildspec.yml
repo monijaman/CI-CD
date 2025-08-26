@@ -19,27 +19,27 @@ phases:
       - echo "Building the React app..."
       - npm run build
       - echo "Build completed successfully"
-      - echo "Checking dist directory:"
-      - ls -la dist/
+      - echo "Checking build directory:"
+      - ls -la build/
 
   post_build:
     commands:
       - echo Build completed successfully
-      - echo "Checking if dist directory exists..."
-      - if [ -d "dist" ]; then
-        echo "dist directory found, listing contents:";
-        ls -la dist/;
-        echo "Uploading to S3...";
-        aws s3 sync dist/ s3://kobras  --delete;
+      - echo "Checking if build directory exists..."
+      - if [ -d "build" ]; then
+          echo "build directory found, listing contents:";
+          ls -la build/;
+          echo "Uploading to S3...";
+          aws s3 sync build/ s3://kobras --delete;
         else
-        echo "dist directory not found - build may have failed";
-        exit 1;
+          echo "build directory not found - build may have failed";
+          exit 1;
         fi
 
 artifacts:
   files:
     - "**/*"
-  base-directory: dist
+  base-directory: build
   discard-paths: no
   name: react-app-build
 
