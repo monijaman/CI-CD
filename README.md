@@ -213,7 +213,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
 
 1. Go to **IAM Console** → **Roles** → Find your CodeBuild role (e.g., `bangla-service-role`)
-2. Add this inline policy:
+2. Add this inline policy:..
 
 Your CodeBuild role needs write permissions to the bucket to upload files during your build. Your bucket policy does not grant write permissions or allow your CodeBuild role explicitly.
 
