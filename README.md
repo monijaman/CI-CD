@@ -34,11 +34,7 @@ git clone https://github.com/monijaman/CI-CD.git
 2. Choose a unique bucket name
 3. Keep default settings (we'll configure hosting later)
 ![image](img/create-s3.jpg)
-Next
-   ![Image](img/cp1.jpg)
-   ![Image](img/cp2.jpg)
-   ![Image](img/cp3.jpg)
-   ![Image](img/cp4.jpg)
+
 
 ## ➡️ Step 3 - Create CodePipeline
 
@@ -57,9 +53,24 @@ Next
 
 ![Image](img/pipeline-2.jpg)
 ![Image](img/pipeline-3.jpg)
+![Image](img/pipeline-4.jpg)
+
+![Image](img/pipeline-5.jpg)
+
+![Image](img/continue-code-pipeline.jpg)
+![Image](img/codepipeline-success.jpg)
+![Image](img/codepipeline3.jpg)
+
 
 ## ➡️ Step 4 - Create CodeBuild Project
 
+ 
+Now let’s set up CodeBuild, which will handle building the React app.
+
+Go to CodeBuild, click Create Build Project.
+Name it something like react-cicd-pipeline-demo
+Next
+  
 Now let’s set up CodeBuild to build and package your React app for deployment.
 
 **Step-by-step:**
@@ -70,11 +81,11 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
    - Provider: **AWS CodeBuild**
    - Choose **"Create project"**
 
-![Image](img/pipeline-5.jpg)
+ ![Image](img/cp1.jpg)
+   ![Image](img/cp2.jpg)
+   ![Image](img/cp3.jpg)
+   ![Image](img/cp4.jpg)
 
-![Image](img/continue-code-pipeline.jpg)
-![Image](img/codepipeline-success.jpg)
-![Image](img/codepipeline3.jpg)
 
 ## ➡️ Step 5 - Add Deploy Stage
 
