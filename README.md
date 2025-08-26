@@ -21,6 +21,7 @@ This project demonstrates how to set up a complete CI/CD pipeline for a React ap
 
 ## ➡️ Step 1 - Setup your React.js App on GitHub
 
+
 First, we’ll set up a React app by cloning the React app from my GitHub repository. You can use your own or follow along with mine. Make sure the app is committed to GitHub.
 
 ```bash
@@ -32,6 +33,8 @@ git clone https://github.com/monijaman/CI-CD.git
 1. Go to AWS S3 service and click **Create bucket**
 2. Choose a unique bucket name
 3. Keep default settings (we'll configure hosting later)
+![image](img/create-s3.jpg)
+Next
    ![Image](img/cp1.jpg)
    ![Image](img/cp2.jpg)
    ![Image](img/cp3.jpg)
