@@ -53,7 +53,7 @@ git clone https://github.com/monijaman/CI-CD.git
 
 ![Image](img/pipeline-2.jpg)
 ![Image](img/pipeline-3.jpg)
-![Image](img/pipeline-4.jpg)
+ 
 
 ![Image](img/pipeline-5.jpg)
 
@@ -188,6 +188,26 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
     }
   ]
 }
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCodePipelineAccess",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-kobrapipe"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::kobras",
+                "arn:aws:s3:::kobras/*"
+            ]
+        }
+    ]
+}
+
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
