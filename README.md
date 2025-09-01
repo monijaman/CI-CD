@@ -11,6 +11,7 @@
 This project demonstrates how to set up a complete CI/CD pipeline for a React application using AWS services including CodePipeline, CodeBuild, and S3 for static website hosting.
 
 ## <a name="steps">🔧 How it Works:</a>
+
 ![image](img/flow.png)
 
 1. Push code to the `main` branch on GitHub.
@@ -20,7 +21,6 @@ This project demonstrates how to set up a complete CI/CD pipeline for a React ap
 5. S3 serves the app as a public static website.
 
 ## ➡️ Step 1 - Setup your React.js App on GitHub
-
 
 First, we’ll set up a React app by cloning the React app from my GitHub repository. You can use your own or follow along with mine. Make sure the app is committed to GitHub.
 
@@ -33,8 +33,7 @@ git clone https://github.com/monijaman/CI-CD.git
 1. Go to AWS S3 service and click **Create bucket**
 2. Choose a unique bucket name
 3. Keep default settings (we'll configure hosting later)
-![image](img/create-s3.jpg)
-
+   ![image](img/create-s3.jpg)
 
 ## ➡️ Step 3 - Create CodePipeline
 
@@ -53,7 +52,6 @@ git clone https://github.com/monijaman/CI-CD.git
 
 ![Image](img/pipeline-2.jpg)
 ![Image](img/pipeline-3.jpg)
- 
 
 ![Image](img/pipeline-5.jpg)
 
@@ -61,16 +59,14 @@ git clone https://github.com/monijaman/CI-CD.git
 ![Image](img/codepipeline-success.jpg)
 ![Image](img/codepipeline3.jpg)
 
-
 ## ➡️ Step 4 - Create CodeBuild Project
 
- 
 Now let’s set up CodeBuild, which will handle building the React app.
 
 Go to CodeBuild, click Create Build Project.
 Name it something like react-cicd-pipeline-demo
 Next
-  
+
 Now let’s set up CodeBuild to build and package your React app for deployment.
 
 **Step-by-step:**
@@ -81,11 +77,10 @@ Now let’s set up CodeBuild to build and package your React app for deployment.
    - Provider: **AWS CodeBuild**
    - Choose **"Create project"**
 
- ![Image](img/cp1.jpg)
-   ![Image](img/cp2.jpg)
-   ![Image](img/cp3.jpg)
-   ![Image](img/cp4.jpg)
-
+![Image](img/cp1.jpg)
+![Image](img/cp2.jpg)
+![Image](img/cp3.jpg)
+![Image](img/cp4.jpg)
 
 ## ➡️ Step 5 - Add Deploy Stage
 
@@ -184,30 +179,39 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
       "Effect": "Allow",
       "Principal": "*",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::your-bucket-name/*"
+      "Resource": "arn:aws:s3:::paradisee/*"
+    },
+    {
+      "Sid": "AllowCodePipelineAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-paradisee-pipeline"
+      },
+      "Action": "s3:*",
+      "Resource": ["arn:aws:s3:::paradisee", "arn:aws:s3:::paradisee/*"]
     }
   ]
 }
+```
 
+Another v
 
+```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowCodePipelineAccess",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-kobrapipe"
-            },
-            "Action": "s3:*",
-            "Resource": [
-                "arn:aws:s3:::kobras",
-                "arn:aws:s3:::kobras/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "arn:aws:s3:::paradisee"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::paradisee/*"
+    }
+  ]
 }
-
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
@@ -235,7 +239,7 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     }
   ]
 }
- 
+
 {
     "Version": "2012-10-17",
     "Statement": [
