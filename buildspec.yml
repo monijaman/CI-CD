@@ -24,25 +24,24 @@ phases:
     commands:
       - echo "Checking which build output folder exists..."
       - if [ -d "dist" ]; then
-          OUTPUT=dist;
+        OUTPUT=dist;
         elif [ -d "build" ]; then
-          OUTPUT=build;
+        OUTPUT=build;
         else
-          echo "No build output folder found - build may have failed";
-          exit 1;
+        echo "No build output folder found - build may have failed";
+        exit 1;
         fi
       - echo "$OUTPUT directory found, listing contents:"
       - ls -la $OUTPUT/
       - echo "Uploading $OUTPUT to S3..."
-      - aws s3 sync $OUTPUT/ s3://kobras --delete
+      - aws s3 sync $OUTPUT/ s3://static-reacti --delete
       - echo "S3 upload completed successfully"
 
 artifacts:
   files:
     - "**/*"
-  base-directory: dist   # <-- use 'dist' since your build output is in dist/
+  base-directory: dist # <-- use 'dist' since your build output is in dist/
   discard-paths: no
-
 
 cache:
   paths:

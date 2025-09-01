@@ -194,7 +194,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 }
 ```
 
-Another v 12
+Another v
 
 ```json
 {
