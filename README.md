@@ -194,7 +194,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 }
 ```
 
-Another v 1
+Another v 12
 
 ```json
 {
@@ -203,12 +203,12 @@ Another v 1
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::paradisee"
+      "Resource": "arn:aws:s3:::kobras"
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::paradisee/*"
+      "Resource": "arn:aws:s3:::kobras/*"
     }
   ]
 }
