@@ -40,7 +40,7 @@ phases:
 artifacts:
   files:
     - "**/*"
-  base-directory: dist # <-- use 'dist' since your build output is in dist/
+  base-directory: dist # <-- use 'dist' - since your build output is in dist/
   discard-paths: no
 
 cache:
