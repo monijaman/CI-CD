@@ -189,6 +189,30 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
     }
   ]
 }
+
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::arnodle"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
+      },
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::arnodle/*"
+    }
+  ]
+}
+
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
