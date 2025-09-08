@@ -44,6 +44,12 @@ git clone https://github.com/monijaman/CI-CD.git
    - S3FullAccess
    - CodeBuildBasePolicy
 
+### Execution mode
+
+1. Superseded → Always use the latest (best for frequent deployments).
+2. Queued → Don’t skip any runs, process sequentially.
+3. Parallel → Allow concurrent runs for speed if safe.
+
 ![Image](img/pipeline-1.jpg)
 
 4. **Add Source Stage:**
@@ -175,60 +181,24 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::paradisee/*"
-    },
-    {
       "Sid": "AllowCodePipelineAccess",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-paradisee-pipeline"
+        "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-viper-pipeline"
       },
-      "Action": "s3:*",
-      "Resource": ["arn:aws:s3:::paradisee", "arn:aws:s3:::paradisee/*"]
-    }
-  ]
-}
-```
-
-Another v
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::kobras"
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::vipers-fang/*"
     },
     {
+      "Sid": "AllowBucketListing",
       "Effect": "Allow",
-      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::kobras/*"
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-viper-pipeline"
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::vipers-fang"
     }
   ]
-}
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowCodePipelineAccess",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-kobrapipe"
-            },
-            "Action": "s3:*",
-            "Resource": [
-                "arn:aws:s3:::kobras",
-                "arn:aws:s3:::kobras/*"
-            ]
-        }
-    ]
 }
 ```
 
