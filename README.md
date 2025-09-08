@@ -212,6 +212,24 @@ Another v
     }
   ]
 }
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCodePipelineAccess",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-kobrapipe"
+            },
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::kobras",
+                "arn:aws:s3:::kobras/*"
+            ]
+        }
+    ]
+}
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
@@ -273,7 +291,7 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
 
 ![Image](img/static-website.jpg)
 ![Image](img/static-enable.jpg)
-![Image](simg/static-enable2.jpg)
+![Image](img/static-enable2.jpg)
 
 3. **Make Bucket Public:**
    - Go to **Permissions** tab
