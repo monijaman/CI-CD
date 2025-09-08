@@ -299,11 +299,8 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
 
 ![Image](img/public-access.jpg)
 
-4. **Add Bucket Policy:**
-   - In **Permissions** tab → **Bucket policy** → **Edit**
-   - Paste this policy (replace `your-bucket-name` with your actual bucket name):
-5. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
-6. Now let's make this S3 Bucket public:
+4. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
+5. Now let's make this S3 Bucket public:
    <br>- On the top bar, choose "Properties"
 
 <br>- Next, we will add a bucket policy to allow public read access inside our s3 bucket. Here's the sample policy you can use:
