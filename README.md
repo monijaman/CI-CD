@@ -186,7 +186,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
       "Effect": "Allow",
       "Principal": "*",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::vipers-fang/*"
+      "Resource": "arn:aws:s3:::shadow-bucketi/*"
     }
   ]
 }
@@ -210,12 +210,12 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::cocodate"
+      "Resource": "arn:aws:s3:::shadow-bucketi"
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::cocodate/*"
+      "Resource": "arn:aws:s3:::shadow-bucketi/*"
     }
   ]
 }
