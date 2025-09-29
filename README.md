@@ -191,29 +191,7 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
     }
   ]
 }
-
-
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
-      },
-      "Action": "s3:ListBucket",
-      "Resource": "arn:aws:s3:::arnodle"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
-      },
-      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::arnodle/*"
-    }
-  ]
-}
+ 
 
 ```
 
@@ -233,15 +211,16 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::vipers-fang"
+      "Resource": "arn:aws:s3:::cocodate"
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::vipers-fang/*"
+      "Resource": "arn:aws:s3:::cocodate/*"
     }
   ]
 }
+
 ```
 
 ⚠️ **Replace `your-bucket-name` with your actual bucket name**
