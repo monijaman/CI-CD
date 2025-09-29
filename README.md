@@ -172,12 +172,11 @@ From the left sidebar, click "Permissions" tab.
 
 Scroll down to Bucket policy section.
 
-Click “Edit” (or “Add policy” if none exists).
+Click “Edit” (or “Add policy” if none exists)..
 
 Paste your policy below (replacing your-bucket-name with your actual bucket name):
 
 ```json
-
 
 {
   "Version": "2012-10-17",
