@@ -44,6 +44,12 @@ git clone https://github.com/monijaman/CI-CD.git
    - S3FullAccess
    - CodeBuildBasePolicy
 
+### Execution mode
+
+1. Superseded → Always use the latest (best for frequent deployments).
+2. Queued → Don’t skip any runs, process sequentially.
+3. Parallel → Allow concurrent runs for speed if safe.
+
 ![Image](img/pipeline-1.jpg)
 
 4. **Add Source Stage:**
@@ -174,60 +180,41 @@ Paste your policy below (replacing your-bucket-name with your actual bucket name
 
 
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowPublicReadAccess",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::arnodle/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPublicReadAccess",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::vipers-fang/*"
+    }
+  ]
 }
 
 
-// {
-//   "Version": "2012-10-17",
-//   "Statement": [
-//     {
-//       "Sid": "PublicReadGetObject",
-//       "Effect": "Allow",
-//       "Principal": "*",
-//       "Action": "s3:GetObject",
-//       "Resource": "arn:aws:s3:::paradisee/*"
-//     },
-//     {
-//       "Sid": "AllowCodePipelineAccess",
-//       "Effect": "Allow",
-//       "Principal": {
-//         "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-paradisee-pipeline"
-//       },
-//       "Action": "s3:*",
-//       "Resource": ["arn:aws:s3:::paradisee", "arn:aws:s3:::paradisee/*"]
-//     }
-//   ]
-// }
-```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::arnodle"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::590183819081:role/YourRoleName"
+      },
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::arnodle/*"
+    }
+  ]
+}
 
-Another v
-
-```json
-// {
-//   "Version": "2012-10-17",
-//   "Statement": [
-//     {
-//       "Effect": "Allow",
-//       "Action": ["s3:ListBucket"],
-//       "Resource": "arn:aws:s3:::kobras"
-//     },
-//     {
-//       "Effect": "Allow",
-//       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-//       "Resource": "arn:aws:s3:::kobras/*"
-//     }
-//   ]
-// }
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)
@@ -246,32 +233,15 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::your-bucket-name"
+      "Resource": "arn:aws:s3:::vipers-fang"
     },
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::your-bucket-name/*"
+      "Resource": "arn:aws:s3:::vipers-fang/*"
     }
   ]
 }
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": ["s3:ListBucket"],
-            "Resource": "arn:aws:s3:::kobras"
-        },
-        {
-            "Effect": "Allow",
-            "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-            "Resource": "arn:aws:s3:::kobras/*"
-        }
-    ]
-}
-
 ```
 
 ⚠️ **Replace `your-bucket-name` with your actual bucket name**
@@ -289,7 +259,7 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
 
 ![Image](img/static-website.jpg)
 ![Image](img/static-enable.jpg)
-![Image](simg/static-enable2.jpg)
+![Image](img/static-enable2.jpg)
 
 3. **Make Bucket Public:**
    - Go to **Permissions** tab
@@ -297,11 +267,8 @@ So you need to attach this inline IAM policy to your CodeBuild service role (rep
 
 ![Image](img/public-access.jpg)
 
-4. **Add Bucket Policy:**
-   - In **Permissions** tab → **Bucket policy** → **Edit**
-   - Paste this policy (replace `your-bucket-name` with your actual bucket name):
-5. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
-6. Now let's make this S3 Bucket public:
+4. You should see the S3 bucket with objects inside, extracted from our CodePipeline.
+5. Now let's make this S3 Bucket public:
    <br>- On the top bar, choose "Properties"
 
 <br>- Next, we will add a bucket policy to allow public read access inside our s3 bucket. Here's the sample policy you can use:
