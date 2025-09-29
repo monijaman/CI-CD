@@ -171,47 +171,63 @@ Click “Edit” (or “Add policy” if none exists).
 Paste your policy below (replacing your-bucket-name with your actual bucket name):
 
 ```json
+
+
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::paradisee/*"
-    },
-    {
-      "Sid": "AllowCodePipelineAccess",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-paradisee-pipeline"
-      },
-      "Action": "s3:*",
-      "Resource": ["arn:aws:s3:::paradisee", "arn:aws:s3:::paradisee/*"]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowPublicReadAccess",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::arnodle/*"
+        }
+    ]
 }
+
+
+// {
+//   "Version": "2012-10-17",
+//   "Statement": [
+//     {
+//       "Sid": "PublicReadGetObject",
+//       "Effect": "Allow",
+//       "Principal": "*",
+//       "Action": "s3:GetObject",
+//       "Resource": "arn:aws:s3:::paradisee/*"
+//     },
+//     {
+//       "Sid": "AllowCodePipelineAccess",
+//       "Effect": "Allow",
+//       "Principal": {
+//         "AWS": "arn:aws:iam::590183819081:role/service-role/AWSCodePipelineServiceRole-ap-southeast-1-paradisee-pipeline"
+//       },
+//       "Action": "s3:*",
+//       "Resource": ["arn:aws:s3:::paradisee", "arn:aws:s3:::paradisee/*"]
+//     }
+//   ]
+// }
 ```
 
 Another v
 
 ```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": "arn:aws:s3:::kobras"
-    },
-    {
-      "Effect": "Allow",
-      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::kobras/*"
-    }
-  ]
-}
+// {
+//   "Version": "2012-10-17",
+//   "Statement": [
+//     {
+//       "Effect": "Allow",
+//       "Action": ["s3:ListBucket"],
+//       "Resource": "arn:aws:s3:::kobras"
+//     },
+//     {
+//       "Effect": "Allow",
+//       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+//       "Resource": "arn:aws:s3:::kobras/*"
+//     }
+//   ]
+// }
 ```
 
 ## ➡️ Step 8 - Fix IAM Permissions (If Build Fails)

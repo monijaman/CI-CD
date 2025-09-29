@@ -34,7 +34,7 @@ phases:
       - echo "$OUTPUT directory found, listing contents:"
       - ls -la $OUTPUT/
       - echo "Uploading $OUTPUT to S3..."
-      - aws s3 sync $OUTPUT/ s3://static-reacti --delete
+      - aws s3 sync $OUTPUT/ s3://cocodate --delete
       - echo "S3 upload completed successfully"
 
 artifacts:
